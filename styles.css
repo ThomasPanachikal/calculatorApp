@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-size: 62.5%;
+  background-color: #181a1b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+#calculatorContainer {
+  width: 30%;
+  height: 80%;
+  border: 1px solid white;
+  background-color: black;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+}
+#display {
+  height: 20%;
+  background-color: black;
+  color: white;
+  font-family: "Orbitron", sans-serif;
+}
+#expressionDisplay {
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: start;
+  padding: 1rem;
+  height: 100%;
+  font-size: 2rem;
+  overflow: scroll;
+}
+
+#buttons {
+  height: 80%;
+  display: grid;
+  grid-template: 20% 20% 20% 20% 20% / 25% 25% 25% 25%;
+  grid-template-areas:
+    "clear del changeSign divide"
+    "dig7 dig8 dig9 multiply"
+    "dig4 dig5 dig6 minus"
+    "dig1 dig2 dig3 plus"
+    "dig0 dig0 decimal equal ";
+}
+
+.button {
+  background-color: #242933;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.15rem;
+  border-radius: 4px;
+}
+
+.clear {
+  grid-area: clear;
+  background-color: #363e4c;
+}
+
+.delete {
+  grid-area: del;
+  background-color: #363e4c;
+}
+
+.operator,
+.result {
+  background-color: #0e60e5;
+}
+
+.operator .divide {
+  grid-area: divide;
+}
+.operator .multiply {
+  grid-area: multiply;
+}
+.operator .minus {
+  grid-area: minus;
+}
+.operator .plus {
+  grid-area: plus;
+}
+.operator .equal {
+  grid-area: equal;
+  background-color: #0e60e5;
+}
+.decimal {
+  grid-area: decimal;
+}
+
+.changeSign {
+  grid-area: changeSign;
+  background-color: #363e4c;
+}
+
+.digit_0 {
+  grid-area: dig0;
+}
+
+.digit_1 {
+  grid-area: dig1;
+}
+.digit_2 {
+  grid-area: dig2;
+}
+
+.digit_3 {
+  grid-area: dig3;
+}
+
+.digit_4 {
+  grid-area: dig4;
+}
+
+.digit_5 {
+  grid-area: dig5;
+}
+
+.digit_6 {
+  grid-area: dig6;
+}
+
+.digit_7 {
+  grid-area: dig7;
+}
+
+.digit_8 {
+  grid-area: dig8;
+}
+
+.digit_9 {
+  grid-area: dig9;
+}
+
+#credits {
+  display: block;
+  font-size: 1.2rem;
+}
