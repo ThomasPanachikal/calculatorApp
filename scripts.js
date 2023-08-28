@@ -14,7 +14,6 @@ function calculatorDisplay() {
 }
 
 function UserInputProcessing(type, inputVal) {
-  console.log(type);
   let lastUserInput = userInputExpressionArr[userInputExpressionArr.length - 1];
   let usrInput = new UserInputObj(type);
 
@@ -39,7 +38,6 @@ function UserInputProcessing(type, inputVal) {
     case type === "delete":
       if (lastUserInput.type === "operator") {
         userInputExpressionArr.pop();
-        console.log(userInputExpressionArr);
         break;
       }
 
@@ -47,23 +45,18 @@ function UserInputProcessing(type, inputVal) {
         //negative number check
         let s = lastUserInput.strValue;
         if (lastUserInput.strValue.includes(")")) {
-          console.log(50);
           let strNumValue = s.slice(2, s.length - 1);
-          console.log("pre-strNumValue:", strNumValue);
-          console.log("pre-strNumValue.l:", strNumValue.length);
           lastUserInput.strValue = `(-${strNumValue.slice(
             0,
             strNumValue.length - 1
           )})`;
-          console.log("post-strNumValue:", strNumValue);
-          console.log("post-strNumValue.l:", strNumValue.length);
           if (lastUserInput.strValue.length === 3) {
             userInputExpressionArr.pop();
             break;
           }
           break;
         }
-        //positive number
+        //positive number check
         else {
           if (s.slice(0, s.length - 1).length === 0) {
             userInputExpressionArr.pop();
