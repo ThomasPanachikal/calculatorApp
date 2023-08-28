@@ -78,8 +78,7 @@ body {
   background-color: #363e4c;
 }
 
-.operator,
-.result {
+.operator {
   background-color: #0e60e5;
 }
 
@@ -95,7 +94,7 @@ body {
 .operator .plus {
   grid-area: plus;
 }
-.operator .equal {
+.equals {
   grid-area: equal;
   background-color: #0e60e5;
 }
