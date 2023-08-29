@@ -35,6 +35,13 @@ function UserInputProcessing(type, inputVal) {
       userInputExpressionArr.push(numInput("0"));
       break;
 
+    case userInputExpressionArr.some((element) => element.type === "equals"):
+      if (type === "delete" || type === "clear") {
+        UserInputProcessing("clear", null);
+        return;
+      }
+      break;
+
     case type === "delete":
       if (lastUserInput.type === "operator") {
         userInputExpressionArr.pop();
@@ -66,7 +73,6 @@ function UserInputProcessing(type, inputVal) {
           break;
         }
       }
-
       break;
 
     case type === "number":
@@ -115,8 +121,8 @@ function UserInputProcessing(type, inputVal) {
         }
         lastUserInput.numValue = -1;
         lastUserInput.strValue = `(-${lastUserInput.strValue})`;
-        break;
       }
+      break;
 
     case type === "operator":
       if (lastUserInput.type === "number") {
@@ -128,6 +134,15 @@ function UserInputProcessing(type, inputVal) {
         }
         usrInput.strValue = ` ${inputVal} `;
         usrInput.numValue = null;
+        userInputExpressionArr.push(usrInput);
+      }
+      break;
+
+    case type === "equals":
+      if (lastUserInput.type === "number") {
+        // let result = calculate();
+        let result = "$";
+        usrInput.strValue = ` = ${result}`;
         userInputExpressionArr.push(usrInput);
       }
       break;
