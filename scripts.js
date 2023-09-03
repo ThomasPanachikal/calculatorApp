@@ -13,6 +13,72 @@ function calculatorDisplay() {
     .join("");
 }
 
+function calculate() {
+  let numValueArr = [];
+  let decimalDigitsC = undefined;
+  userInputExpressionArr.forEach((item) => {
+    if (item.type === "operator") {
+      numValueArr.push(item.strValue.trim());
+      return;
+    }
+    if (item.type === "number") {
+      if (item.strValue.includes("(")) {
+        numValueArr.push(item.strValue.slice(2, item.strValue.length - 1) * -1);
+      } else {
+        // positive number
+        numValueArr.push(+item.strValue);
+      }
+    }
+  });
+
+  for (let loop = 1; loop <= 2; loop++) {
+    for (let index = 0; index < numValueArr.length; index++) {
+      const element = numValueArr[index];
+      let operationResult = undefined;
+
+      if (element.toString().includes(".")) {
+        let tempDigitsC = element.toString().split(".")[1].toString().length;
+        if (decimalDigitsC === undefined || tempDigitsC > decimalDigitsC) {
+          decimalDigitsC = tempDigitsC;
+        }
+      }
+      if (Number.isFinite(+element) === false) {
+        let leftOperand = numValueArr[index - 1];
+        let rightOperand = numValueArr[index + 1];
+
+        if (loop === 1 && (element === "÷" || element === "x")) {
+          if (element === "÷") {
+            operationResult = leftOperand / rightOperand;
+            if (rightOperand === 0) {
+              alert('Zero division error.')
+              return "Math Error";
+            }
+          }
+          if (element === "x") {
+            operationResult = leftOperand * rightOperand;
+          }
+        }
+
+        if (loop === 2 && (element === "+" || element === "-")) {
+          if (element === "+") {
+            operationResult = leftOperand + rightOperand;
+          }
+          if (element === "-") {
+            operationResult = leftOperand - rightOperand;
+          }
+        }
+        if (operationResult !== undefined) {
+          numValueArr.splice(index - 1, 0, operationResult);
+          numValueArr.splice(index, 3);
+          index = index - 1;
+        }
+      }
+    }
+  }
+  numValueArr[0] = +numValueArr[0].toFixed(decimalDigitsC + 1);
+  return numValueArr;
+}
+
 function UserInputProcessing(type, inputVal) {
   let lastUserInput = userInputExpressionArr[userInputExpressionArr.length - 1];
   let usrInput = new UserInputObj(type);
@@ -140,9 +206,7 @@ function UserInputProcessing(type, inputVal) {
 
     case type === "equals":
       if (lastUserInput.type === "number") {
-        // let result = calculate();
-        let result = "$";
-        usrInput.strValue = ` = ${result}`;
+        usrInput.strValue = ` = ${calculate()}`;
         userInputExpressionArr.push(usrInput);
       }
       break;
@@ -155,7 +219,6 @@ function UserInputProcessing(type, inputVal) {
     lastUserInput.strValue = lastUserInput.strValue.replace(")", "");
     lastUserInput.strValue += ")";
   }
-
   calculatorDisplay();
 }
 
